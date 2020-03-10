@@ -1,0 +1,22 @@
+[
+    {
+        "Filename":"test.mp3",
+        "Title":"Test File 1",
+        "Artist":"AGallop 2020"
+    },
+    {
+        "Filename":"The Five Stairsteps.mp3",
+        "Title":"The Five Startsteps",
+        "Artist":"Jimmy Needles"
+    },
+    {
+        "Filename":"test.mp3",
+        "Title":"Test File 3",
+        "Artist":"AGallop 2020"
+    },
+    {
+        "Filename":"test.mp3",
+        "Title":"Test File 4",
+        "Artist":"AGallop 2020"
+    }
+]
