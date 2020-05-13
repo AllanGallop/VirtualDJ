@@ -12,23 +12,23 @@ class Player {
         this.analyser.connect(this.context.destination);
         this.frequency_array = new Uint8Array(this.analyser.frequencyBinCount);
         this.audio.addEventListener("ended",this.onEnded.bind(this));
-        this.current_track = 0;
-        this.current_artist;
-        this.current_title;
+        this.current_artist = "VirtualDJ";
+        this.current_title = "Allan Gallop";
+        this.isPaused = false;
         this.playNext();
     }
 
     animationLooper(){
         var center_x, center_y, radius, bars, x, y, x_end, y_end, bar_height, bar_width, rads;
-        bars = 100;
-        bar_width = 4;
+        bars = 200; //100
+        bar_width = 4; //4
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
         // find the center of the window
         center_x = this.canvas.width / 2;
         center_y = this.canvas.height / 2;
         radius = 200;
-        
+
         //draw a circle
         this.ctx.beginPath();
         this.ctx.arc(center_x,center_y,radius,0,2*Math.PI);
@@ -40,7 +40,7 @@ class Player {
         for(var i = 0; i < bars; i++){
             //divide a circle into equal parts
             rads = Math.PI * 2 / bars;
-            bar_height = this.frequency_array[i]*0.4;
+            bar_height = this.frequency_array[i]*0.35; //0.4
             // set coordinates
             x = center_x + Math.cos(rads * i) * (radius);
             y = center_y + Math.sin(rads * i) * (radius);
@@ -48,21 +48,19 @@ class Player {
             y_end = center_y + Math.sin(rads * i)*(radius + bar_height);
             //draw a bar
             this.drawBar(x, y, x_end, y_end, bar_width);
-        
+
         }
         this.ctx.fillStyle = "white";
         this.ctx.textAlign = "center"
         this.ctx.font = "24px Helvetica";
-        this.ctx.fillText(this.current_title, center_x, center_y); 
-        this.ctx.font = "14px Arial";
+        this.ctx.fillText(this.current_title, center_x, center_y);
+        this.ctx.font = "14px Helvetica";
         this.ctx.fillText('by '+this.current_artist, center_x, (center_y+14));
         var self = this;
         window.requestAnimationFrame(function() { self.animationLooper(); } );
     }
 
     drawBar(x1, y1, x2, y2, width){
-    
-        //var lineColor = "rgb(" + frequency + ", " + frequency + ", " + 205 + ")";
         var lineColor = "rgb(255,255,255)";
         this.ctx.strokeStyle = lineColor;
         this.ctx.lineWidth = width;
@@ -78,12 +76,19 @@ class Player {
         this.audio.play();
         this.animationLooper();
     }
+    pause(){
+        if(this.isPaused){
+            this.audio.play();
+            this.isPaused = false;
+        }else{
+            this.audio.pause();
+            this.isPaused = true;
+        }
+    }
     playNext(){
-        this.socket.emit('requestSong',this.current_track);
+        this.socket.emit('skip','forward');
     }
     onEnded(){
-        console.log('playback finished');
-        this.current_track++;
         this.playNext();
     }
 }
@@ -97,9 +102,14 @@ var p = new Player(
 socket.on('connect',function(){
     console.log('Connected to server');
 });
+socket.on('error',function(msg){
+    alert(msg);
+});
+socket.on('pause',function(){
+    p.pause();
+});
 socket.on('playNext',function(arr){
     arr = arr.split(',');
-    console.log("Playback of "+arr[1]+" started");
     current_title = arr[1];
     current_artist = arr[2];
     current_track = "media/"+arr[0];

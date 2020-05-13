@@ -57,12 +57,12 @@
             line-height: 60px;
         }
         .controls button {
-            width:30px;
             border:none;
             background-color:transparent;
-            color:rgba(255,255,255,0.2);
+            color:rgba(255,255,255,0.5);
             font-size:1.2em;
             line-height: 60px;
+            text-align: center;
         }
         .controls button.right {
             position: absolute;
@@ -137,10 +137,9 @@
         <img src="media/qr-code.png">
     </div>
     <div class="controls">
-        <button><i class="fa fa-fast-backward fa-fw"></i></button>
-        <button><i class="fa fa-pause fa-fw"></i></button>
-        <button><i class="fa fa-fast-forward fa-fw"></i></button>
-        <button class="right lock"><i class="fa fa-lock fa-fw"></i></button>
+        <button><i class="fa fa-fast-backward fa-fw" id="btn_bck"></i></button>
+        <button><i class="fa fa-pause fa-fw" id="btn_play"></i></button>
+        <button><i class="fa fa-fast-forward fa-fw" id="btn_fwd"></i></button>
     </div>
 
     <div class="modal">
@@ -176,9 +175,13 @@
     <script>
         $(function(){
             $('.modal').hide();
-            $('.lock').on('click',function(){
+            $('.locked').on('click',function(){
                 $('.modal').toggle();
             });
+            
+            $('#btn_play').on('click',function(){ p.pause(); });
+            $('#btn_fwd').on('click',function(){ p.playNext('forward')   });
+            $('#btn_bck').on('click',function(){ p.playNext('backward'); });
         });
     </script>
 </footer>

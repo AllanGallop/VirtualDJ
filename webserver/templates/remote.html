@@ -1,0 +1,86 @@
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+    <style>
+        body {
+            margin:0;
+            top:0;
+            left:0;
+            width:100vw;
+            min-height:100vh;
+            overflow:hidden;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 20s ease infinite;
+    }
+    @keyframes gradient {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+    .wrapper {
+        width:100vw;
+        height:100vh;
+    }
+    .controls {
+        width:100%;
+        max-width:300px;
+        min-width:300px;
+        margin:calc(50vh - 100px) auto; 
+        background-color:rgba(0,0,0,0.5);
+        text-align: center;
+        justify-content: center;
+        align-content: center;
+    }
+    .controls .row {
+        padding:5px 0px 5px 0px;
+        background-color:rgba(0,0,0,0.5);
+    }
+    .controls button {
+        border:none;
+        background-color:transparent;
+        color:rgba(255,255,255,0.2);
+        text-align:center;
+        font-size:1.5em;
+        line-height: 60px;
+        margin:5px;
+    }
+    .controls .currentTrack {
+        padding-top:100px;
+        padding-bottom:100px;
+    }
+    .controls .currentTrack label {
+        display:block;
+        color:white;
+    }
+    .controls .currentTrack label#artist {
+        font-size:0.8em;
+    }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="controls">
+            <div class="currentTrack">
+                <label id="title">The Five Starsteps</label>
+                <label id="artist">Jimmie Needles</label>
+            </div>
+            <div class="row">
+                <button><i class="fa fa-fast-backward fa-fw" id="btn_bck"></i></button>
+                <button><i class="fa fa-pause fa-fw" id="btn_play"></i></button>
+                <button><i class="fa fa-fast-forward fa-fw" id="btn_fwd"></i></button>
+            </div>
+        </div>
+    </div>
+</body>
+<footer>
+    <script src="remote.js"></script>
+</footer>
