@@ -4,7 +4,7 @@ WIP: A browser based music player with visualiser for my wedding based on websoc
 ### Preface
 We are opting not to have a DJ or Band for our wedding reception as I already own decent audio and lighting gear,
 so I wanted simple application to run through a playlist and show some fancy visualisations. This is still very much
-a **Work-in-Progress** hobby project
+a **Work-in-Progress** hobby project for local use! *only a fool would host this online*
 
 ### Usage
 * Copying files into /media
